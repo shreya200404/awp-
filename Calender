@@ -1,46 +1,55 @@
-MARKUP CODE:
-
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="WebForm1.aspx.cs" Inherits="WebApplication3.WebForm1" %>
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Calendar Example</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            <!-- Calendar control that will render each day and highlight the 18th -->
-            <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender"></asp:Calendar>
-        </div>
-    </form>
-</body>
-</html>
-
-.CS CODE:
-
+ASPX.CS:
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WebApplication3
+namespace WebApplication9
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Any logic to execute when the page loads goes here
+
         }
 
-        // Event handler for rendering specific days in the calendar
         protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
         {
-            // If the day being rendered is the 18th, add the "Holiday" label
-            if (e.Day.Date.Day == 18)
+            if(e.Day.Date.Year == 2024 && e.Day.Date.Month == 9 && e.Day.Date.Day == 2)
             {
-                e.Cell.Controls.Add(new LiteralControl("<br/>Holiday"));
-            
+                Label l1 = new Label();
+                l1.Text = "</br>ganpati";
+                e.Cell.Controls.Add(l1);
             }
-        }
-    }
+            if (e.Day.Date.Year == 2024 && e.Day.Date.Month == 9 && e.Day.Date.Day == 18)
+            {
+                Label l1 = new Label();
+                l1.Text = "</br>mahadev";
+                e.Cell.Controls.Add(l1);
+            }
+          
+            
+
+
+            }
+
+            protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            Calendar1.SelectedDayStyle.BackColor = System.Drawing.Color.Red;
+            Calendar1.SelectedDayStyle.ForeColor = System.Drawing.Color.Blue;
+
+        }
+
+      
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            TimeSpan ts = Calendar1.SelectedDate - Calendar2.SelectedDate;
+            Label2.Text = ts.TotalDays.ToString();
+
+        }
+    }
 }
