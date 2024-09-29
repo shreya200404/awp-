@@ -1,77 +1,67 @@
-Gross.cs 
-using System; 
-namespace MultipleInheritance 
-{ 
-interface Gross 
-{ 
-int ta 
-{ 
-get; 
-set; 
-} 
-int da 
-{ 
-get; 
-set; 
-} 
-int GrossSal(); 
-} } 
-Employee.cs 
-using System; 
-namespace MultipleInheritance 
-{ 
-class Employee 
-{ 
-string name; 
-public Employee(string name) 
-{ this.name = name; } 
-public int BasicSal(int basicSal) 
-{ return basicSal; } 
-public void ShowData() 
-{ 
-Console.WriteLine("Name : " + name); 
-} } } 
-Salary.cs 
-using System; 
-namespace MultipleInheritance 
-{ 
-class Salary:employee,Gross 
-{ 
-int hra; 
-public Salary(string name, int hra):base(name) 
-{ this.hra = hra; } 
-public int ta 
-{ 
-get {return S_ta; } 
-set { S_ta = value; } 
-} 
-private int S_ta; 
-public int da 
+using System;
+
+// Interface 1: Employee Details
+interface IEmployeeDetails
 {
-get { return S_da; } 
-set { S_da = value; } 
-} 
-private int S_da; 
-public int GrossSal() 
-{ 
-int gSal; 
-gSal = hra + ta + da + BasicSal(15000); 
-return gSal; 
-} 
-public void dispSal() 
-{ base.ShowData(); 
-Console.WriteLine("Gross Sal : " + GrossSal()); 
-} } } 
-Program.cs 
-using System; 
-namespace MultipleInheritance 
-{ 
-class Program 
-{ 
-static void Main(string[] args) 
-{ 
-Salary s = new Salary("Prachit", 35000); 
-s.da = 20000; 
-s.ta = 30000; 
-s.dispSal(); 
-} } } 
+    void AcceptDetails();
+    void DisplayDetails();
+}
+
+// Interface 2: Salary Calculation
+interface ISalary
+{
+    void CalculateGrossSalary();
+}
+
+// Class implementing both interfaces (simulating multiple inheritance)
+class Employee : IEmployeeDetails, ISalary
+{
+    public string Name;
+    public double BasicSalary;
+    public double HRA;  // House Rent Allowance
+    public double DA;   // Dearness Allowance
+    public double GrossSalary;
+
+    // Accept employee details
+    public void AcceptDetails()
+    {
+        Console.WriteLine("Enter employee name:");
+        Name = Console.ReadLine();
+
+        Console.WriteLine("Enter basic salary:");
+        BasicSalary = Convert.ToDouble(Console.ReadLine());
+    }
+
+    // Calculate gross salary
+    public void CalculateGrossSalary()
+    {
+        HRA = 0.2 * BasicSalary; // Assuming HRA is 20% of Basic Salary
+        DA = 0.1 * BasicSalary;  // Assuming DA is 10% of Basic Salary
+        GrossSalary = BasicSalary + HRA + DA;
+    }
+
+    // Display employee details and gross salary
+    public void DisplayDetails()
+    {
+        Console.WriteLine("\nEmployee Details:");
+        Console.WriteLine("Name: " + Name);
+        Console.WriteLine("Basic Salary: " + BasicSalary);
+        Console.WriteLine("Gross Salary: " + GrossSalary);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create an object of Employee class
+        Employee employee = new Employee();
+
+        // Accept details and calculate gross salary
+        employee.AcceptDetails();
+        employee.CalculateGrossSalary();
+
+        // Display details and gross salary
+        employee.DisplayDetails();
+    }
+}
