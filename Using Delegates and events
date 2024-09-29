@@ -1,46 +1,56 @@
-TrafficSignal.cs 
-using System; 
-namespace TrafficDelegateExample 
-{ 
-public delegate void TrafficDel(); 
-class TrafficSignal 
-{ 
-public static void Yellow() 
-{ 
-Console.WriteLine("Yellow light signals to get ready"); 
-} 
-public static void Green() 
-{ 
-Console.WriteLine("Green light signals to go"); 
-} 
-public static void Red() 
-{ 
-Console.WriteLine("Red light signals to stop"); 
-} 
-TrafficDel[] td = new TrafficDel[3]; 
-public void IdentifySignal() 
-{ 
-td[0] = new TrafficDel(Yellow); 
-td[1] = new TrafficDel(Green); 
-td[2] = new TrafficDel(Red); 
-} 
-public void display() 
-{ 
-td[0](); 
-td[1](); 
-td[2](); 
-} 
-} } 
- 
-Program.cs 
-using System; 
-namespace TrafficDelegateExample 
-{ 
-class Program 
-{ 
-static void Main(string[] args) 
-{ 
-TrafficSignal ts = new TrafficSignal(); 
-ts.IdentifySignal(); 
-ts.display(); 
-} } } 
+using System;
+
+namespace TrafficLightExample
+{
+    // Define a delegate
+    public delegate void TrafficLightEventHandler(string message);
+
+    // Define a class that uses the delegate
+    public class TrafficLight
+    {
+        // Declare an event of the delegate type
+        public event TrafficLightEventHandler LightChanged;
+
+        public void ChangeLight(string color)
+        {
+            // Raise the event with a corresponding message
+            switch (color.ToLower())
+            {
+                case "yellow":
+                    LightChanged?.Invoke("Yellow light signals to get ready");
+                    break;
+                case "green":
+                    LightChanged?.Invoke("Green light signals to go");
+                    break;
+                case "red":
+                    LightChanged?.Invoke("Red light signals to stop");
+                    break;
+                default:
+                    LightChanged?.Invoke("Unknown light color");
+                    break;
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TrafficLight trafficLight = new TrafficLight();
+
+            // Subscribe to the event
+            trafficLight.LightChanged += TrafficLight_LightChanged;
+
+            // Simulate changing the traffic light
+            trafficLight.ChangeLight("yellow");
+            trafficLight.ChangeLight("green");
+            trafficLight.ChangeLight("red");
+        }
+
+        // Event handler
+        static void TrafficLight_LightChanged(string message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+}
