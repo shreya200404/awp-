@@ -1,14 +1,15 @@
-using System; 
-namespace cmdLineArgs 
-{ 
-class Program 
-{ 
-static void Main(string[] args) 
-{ 
-string str = args[0]; 
-int n = Convert.ToInt32(args[1]); 
-Console.WriteLine("String:" + str); 
-Console.WriteLine("Number:" + n); 
-} 
-} 
-} 
+using System;
+
+class StringOperations
+{
+    static void Main()
+    {
+        string sample = "Hello, C#";
+
+        Console.WriteLine("Original: " + sample);
+        Console.WriteLine("Uppercase: " + sample.ToUpper());
+        Console.WriteLine("Substring: " + sample.Substring(7));
+        Console.WriteLine("Contains 'C#': " + sample.Contains("C#"));
+        Console.WriteLine("Replaced: " + sample.Replace("C#", "World"));
+    }
+}
