@@ -1,39 +1,57 @@
-Salary.cs 
-using System; 
-namespace SalaryConstructure 
-{ 
-class Salary 
-{ 
-int basic, ta, da, hra; 
-public Salary() 
-{ 
-da = 9000; 
-hra = 6000; 
-} 
-public void getdata() 
-{ 
-Console.Write("Enter basic salary : "); 
-basic = int.Parse(Console.ReadLine()); 
-Console.Write("Enter travelling allowance : "); 
-ta = int.Parse(Console.ReadLine()); 
-} 
-public void showdata() 
-{ 
-Console.WriteLine("Basic salary : " + basic); 
-Console.WriteLine("Dearness allowence : " + da); 
-Console.WriteLine("Housing rent allowence : " + hra); 
-Console.WriteLine("Travelling allowence : " + ta); 
-Console.WriteLine("Gross Salary : " + (basic + da + hra + ta)); 
-} } } 
-Program.cs 
-using System; 
-namespace SalaryConstructure 
-{ 
-class Program 
-{ 
-static void Main(string[] args) 
-{ 
-Salary s = new Salary(); 
-s.getdata(); 
-s.showdata(); 
-} } } 
+using System;
+
+class Salary
+{
+    public double BasicSalary, DA, HRA, TA, GrossSalary;
+
+    // Constructor 1: Only basic salary
+    public Salary(double basicSalary)
+    {
+        BasicSalary = basicSalary;
+        DA = 0.15 * BasicSalary;  // Dearness Allowance (15% of basic salary)
+        HRA = 0.10 * BasicSalary; // Housing Rent Allowance (10% of basic salary)
+        TA = 0;  // Default TA if not provided
+    }
+
+    // Constructor 2: Basic salary and traveling allowance
+    public Salary(double basicSalary, double travellingAllowance) : this(basicSalary)
+    {
+        TA = travellingAllowance; // Travelling Allowance
+    }
+
+    // Method to calculate gross salary
+    public void CalculateGrossSalary()
+    {
+        GrossSalary = BasicSalary + DA + HRA + TA;
+    }
+
+    // Method to display salary details
+    public void DisplaySalaryDetails()
+    {
+        Console.WriteLine("Basic Salary : " + BasicSalary);
+        Console.WriteLine("Dearness Allowance : " + DA);
+        Console.WriteLine("Housing Rent Allowance : " + HRA);
+        Console.WriteLine("Travelling Allowance : " + TA);
+        Console.WriteLine("Gross Salary : " + GrossSalary);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Input
+        Console.Write("Enter basic salary: ");
+        double basicSalary = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter travelling allowance: ");
+        double travellingAllowance = Convert.ToDouble(Console.ReadLine());
+
+        // Using the overloaded constructor
+        Salary salary = new Salary(basicSalary, travellingAllowance);
+        
+        // Calculate and display gross salary
+        salary.CalculateGrossSalary();
+        salary.DisplaySalaryDetails();
+    }
+}
