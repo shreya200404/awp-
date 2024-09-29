@@ -1,0 +1,23 @@
+VIEW -> SOLUTION EXPLORER -> WEB.config -><configuration> tag ke just baad :
+<appSettings>
+	<add key="ValidationSettings:UnobtrusiveValidationMode" value="None"/>
+</appSettings>
+
+FOR ADROTATOR:
+<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+	<Ad>
+		<ImageUrl>ai1.jpg</ImageUrl>
+		<NavigateUrl></NavigateUrl>
+		<AlternateText>computer</AlternateText>
+		<Impressions>50</Impressions>
+		<Keyword>computer</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>a13.jpg</ImageUrl>
+		<NavigateUrl></NavigateUrl>
+		<AlternateText>computer</AlternateText>
+		<Impressions>50</Impressions>
+		<Keyword>computer</Keyword>
+	</Ad>
+</Advertisements>
