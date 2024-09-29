@@ -1,0 +1,70 @@
+using System;
+
+// Base class: Student
+class Student
+{
+    public int RollNo;
+    public string Name;
+
+    public void GetStudentDetails(int rollNo, string name)
+    {
+        RollNo = rollNo;
+        Name = name;
+    }
+
+    public void DisplayStudentDetails()
+    {
+        Console.WriteLine("Roll No: " + RollNo);
+        Console.WriteLine("Name: " + Name);
+    }
+}
+
+// Derived class 1: Marks (inherits from Student)
+class Marks : Student
+{
+    public int Marks1, Marks2;
+
+    public void GetMarks(int marks1, int marks2)
+    {
+        Marks1 = marks1;
+        Marks2 = marks2;
+    }
+
+    public void DisplayMarks()
+    {
+        Console.WriteLine("Marks1: " + Marks1);
+        Console.WriteLine("Marks2: " + Marks2);
+    }
+}
+
+// Derived class 2: Result (inherits from Marks)
+class Result : Marks
+{
+    public void DisplayTotal()
+    {
+        int total = Marks1 + Marks2;
+        Console.WriteLine("Total: " + total);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create an object of the Result class
+        Result result = new Result();
+
+        // Set student details
+        result.GetStudentDetails(101, "Prachit");
+
+        // Set marks
+        result.GetMarks(50, 70);
+
+        // Display output
+        result.DisplayStudentDetails();
+        result.DisplayMarks();
+        result.DisplayTotal();
+
+        Console.WriteLine("---------------");
+    }
+}
