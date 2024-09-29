@@ -1,0 +1,69 @@
+
+ASPX File Code
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="DataListExample.Default" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>DataList Example</title>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <div>
+            <h2>Book List</h2>
+            <asp:DataList ID="dlBooks" runat="server" RepeatColumns="2">
+                <ItemTemplate>
+                    <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc;">
+                        <h3><%# Eval("Title") %></h3>
+                        <p>Author: <%# Eval("Author") %></p>
+                        <p>Price: $<%# Eval("Price", "{0:F2}") %></p>
+                    </div>
+                </ItemTemplate>
+            </asp:DataList>
+        </div>
+    </form>
+
+</body>
+</html>
+
+ASPX.CS
+
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
+
+namespace DataListExample
+{
+    public partial class Default : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                BindDataList();
+            }
+        }
+
+        private void BindDataList()
+        {
+            List<Book> books = new List<Book>
+            {
+                new Book { Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", Price = 12.99m },
+                new Book { Title = "To Kill a Mockingbird", Author = "Harper Lee", Price = 14.99m },
+                new Book { Title = "1984", Author = "George Orwell", Price = 11.99m },
+                new Book { Title = "Pride and Prejudice", Author = "Jane Austen", Price = 9.99m }
+            };
+
+            dlBooks.DataSource = books;
+            dlBooks.DataBind();
+        }
+    }
+
+    public class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public decimal Price { get; set; }
+    }
+}
