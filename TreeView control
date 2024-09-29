@@ -1,0 +1,27 @@
+TREE VIEWCONTROL: IN SOURCE ME (DATALIST KE BICHME VALE CODE ME ) ADD THIS:
+<ItemTemplate>
+    <%# Eval("text")%>>
+</ItemTemplate>
+
+IN ASPX.CS:
+(FOR BUTTON):
+protected void Button1_Click(object sender, EventArgs e)
+ {
+     TreeNodeCollection T;
+     T = TreeView1.CheckedNodes;
+     DataList1.DataSource = T;
+     DataList1.DataBind();
+     DataList1.Visible = true;
+      
+ }
+ 
+(FOR TREEVIEW1):
+protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+{
+    Response.Write("you have selected the option: " + TreeView1.SelectedValue);
+}
+
+protected void TreeView1_TreeNodeCollapsed(object sender, TreeNodeEventArgs e)
+{
+    Response.Write("value collapsed : " + e.Node.Value);
+}
