@@ -25,3 +25,5 @@ protected void TreeView1_TreeNodeCollapsed(object sender, TreeNodeEventArgs e)
 {
     Response.Write("value collapsed : " + e.Node.Value);
 }
+IN SOURCE:
+OnTreeNodeCollapsed="TreeView1_TreeNodeCollapsed"
