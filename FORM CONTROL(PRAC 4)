@@ -1,9 +1,19 @@
+FOR VALIDATION CONTROL:
+REQUIRED:(label,textbox,Required FieldValidator,button)
+STEPS:
+(FOR REQUIREDFIELD VALIDATOR)
+Properties-> errormessage, ControlToValidate->TextBox1
+(FOR PASSWORD VALA BOX)
+ENTER PASSWORD AGIAN->COMPAREVALIDATOR->ControltoValidate=TextBox3->ControltoCompare=TextBox2
+
 VIEW -> SOLUTION EXPLORER -> WEB.config -><configuration> tag ke just baad :
 <appSettings>
 	<add key="ValidationSettings:UnobtrusiveValidationMode" value="None"/>
 </appSettings>
 
 FOR ADROTATOR:
+IN DESIGN PAGE SELECT - ADROTATOR CONTROL
+XML FILE CODE:
 <?xml version="1.0" encoding="utf-8" ?>
 <Advertisements>
 	<Ad>
@@ -21,3 +31,40 @@ FOR ADROTATOR:
 		<Keyword>computer</Keyword>
 	</Ad>
 </Advertisements>
+
+FOR USER CONTROL:
+Required:button,textbox,textbox2,WEB USER CONTROL PAGE
+WebUserControl.ascx-> make 2 tb and 1 button ->CODE:
+       
+       protected void Button1_Click(object sender, EventArgs e)
+ {
+      TextBox2.Text = "welcom" + TextBox1.Text;
+ }
+WebForm.aspx-> make 2 tb and 1 button ->CODE:
+       
+       protected void Button1_Click(object sender, EventArgs e)
+ {
+      TextBox2.Text = "Heloo brother" + TextBox1.Text;
+ }
+WebForm1.aspx(source me):
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication28.WebForm1" %>
+<%@ Register Src="~/WebUserControl1.ascx" TagName="WebuserControl" TagPrefix="uc1" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+            <asp:TextBox ID="TextBox2" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+            <br />
+            <uc1:WebuserControl runat="server" ID="WebUserControl" />
+        </div>
+    </form>
+</body>
+</html>
+
